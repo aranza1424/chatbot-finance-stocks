@@ -1,0 +1,4 @@
+huggingface_hub==0.25.2
+python-dotenv==1.0.1
+yfinance==0.2.55
+pandas==2.2.3
