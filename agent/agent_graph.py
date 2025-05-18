@@ -8,7 +8,7 @@ from uuid import uuid4
 
 from agent.utils.tools import tools
 from agent.utils.states import MessagesState
-from agent.utils.nodes import assistant
+from agent.utils.nodes import nodes
 
 
 
@@ -18,7 +18,7 @@ class AgentGraph:
         builder = StateGraph(MessagesState)
 
         # Define nodes: these do the work
-        builder.add_node("assistant", assistant)
+        builder.add_node("assistant", nodes.assistant)
         builder.add_node("tools", ToolNode(tools))
 
         # Define edges: these determine how the control flow moves
@@ -33,16 +33,19 @@ class AgentGraph:
         memory = MemorySaver()
         self.graph = builder.compile(checkpointer=memory)
     
-    def get_response(self, user_input: str, thread_id: str = None):
+    def get_response(self, user_input: str, history: list = None , thread_id: str = None) -> str:
 
-        if thread_id is None:
-            thread_id = str(uuid4())
+        try:
+            if thread_id is None:
+                thread_id = str(uuid4())
 
-        config = {"configurable": {"thread_id": thread_id}}
-        messages = [HumanMessage(content=user_input)]
+            config = {"configurable": {"thread_id": thread_id}}
+            messages = [HumanMessage(content=user_input)]
 
-        final_state = self.graph.invoke({"messages": messages}, config)
-        return final_state["messages"][-1].content
+            final_state = self.graph.invoke({"messages": messages}, config)
+            return final_state["messages"][-1].content
+        except Exception as e:
+            return f"There was an error calling the graph. \n {e.__class__.__name__,}"
         
 if __name__ == "__main__":
     AgentGraph()

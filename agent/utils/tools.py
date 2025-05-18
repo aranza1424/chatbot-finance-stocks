@@ -1,31 +1,28 @@
 """ Define tools for model"""
+import inspect
 
-def multiply(a: int, b: int) -> int:
-    """Multiply a and b.
+class Toolbox:
+    @staticmethod
+    def multiply(a: int, b: int) -> int:
+        """Multiply a and b."""
+        return a * b
 
-    Args:
-        a: first int
-        b: second int
-    """
-    return a * b
+    @staticmethod
+    def add(a: int, b: int) -> int:
+        """Adds a and b."""
+        return a + b
 
-# This will be a tool
-def add(a: int, b: int) -> int:
-    """Adds a and b.
+    @staticmethod
+    def divide(a: int, b: int) -> float:
+        """Divide a and b."""
+        return a / b
+    
 
-    Args:
-        a: first int
-        b: second int
-    """
-    return a + b
 
-def divide(a: int, b: int) -> float:
-    """Divide a and b.
+def get_tools(cls):
+    return [
+        func for nombre, func in inspect.getmembers(cls, predicate=inspect.isfunction)
+        if not nombre.startswith("__")
+    ]
 
-    Args:
-        a: first int
-        b: second int
-    """
-    return a / b
-
-tools = [add, multiply, divide]
+tools = get_tools(Toolbox)

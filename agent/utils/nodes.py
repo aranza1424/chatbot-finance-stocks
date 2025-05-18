@@ -10,12 +10,17 @@ load_dotenv(override=True)
 os.environ.get("OPENAI_API_KEY")
 
 
-llm = ChatOpenAI(model="gpt-4o-mini")
-llm_with_tools = llm.bind_tools(tools)
 
-# System message
-sys_msg = SystemMessage(content="You are a helpful assistant tasked with performing arithmetic on a set of inputs.")
+class Nodes:
 
-# Node
-def assistant(state: MessagesState):
-   return {"messages": [llm_with_tools.invoke([sys_msg] + state["messages"])]}
+   def __init__(self, tools):
+      self.llm = ChatOpenAI(model="gpt-4o-mini")
+      self.llm_with_tools = self.llm.bind_tools(tools)
+      self.sys_msg = SystemMessage(content="You are a helpful assistant tasked with performing arithmetic on a set of inputs.")
+
+   def assistant(self, state: MessagesState):
+      return {"messages": [self.llm_with_tools.invoke([self.sys_msg] + state["messages"])]}
+   
+
+nodes = Nodes(tools)
+
