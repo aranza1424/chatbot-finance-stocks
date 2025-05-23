@@ -1,0 +1,15 @@
+
+
+## Chroma parameters
+chroma:
+  VECTOR_DB_PATH : chroma_db
+  COLLECTION_NAME: "sp500_info"
+
+
+## database parameters
+dabatase:
+  SP500_INFO_PATH :  db/sp500_info.csv
+
+## embeddings parameters
+embeddings:
+  MODEL_EMBEDDINGS : text-embedding-3-small

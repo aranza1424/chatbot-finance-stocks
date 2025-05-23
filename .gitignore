@@ -3,3 +3,5 @@
 # db/
 
 test_agent.ipynb
+setup_path.py
+chroma_db/chroma.sqlite3

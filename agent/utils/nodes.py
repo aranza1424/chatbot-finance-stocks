@@ -1,13 +1,10 @@
 """ Module to define nodes for the agent"""
-import os
-from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import SystemMessage
 from agent.utils.tools import tools
-from agent.utils.states import MessagesState
+from langgraph.graph import MessagesState
 
-load_dotenv(override=True)
-os.environ.get("OPENAI_API_KEY")
+
 
 
 

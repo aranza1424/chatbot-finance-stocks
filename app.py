@@ -1,8 +1,12 @@
 """ Agent
 """
 import os
+from dotenv import load_dotenv
 import gradio as gr
 from agent.agent_graph import AgentGraph
+
+load_dotenv(override=True)
+os.environ.get("OPENAI_API_KEY")
 
 
 class ChatInterface:
