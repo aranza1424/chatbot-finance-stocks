@@ -13,3 +13,7 @@ dabatase:
 ## embeddings parameters
 embeddings:
   MODEL_EMBEDDINGS : text-embedding-3-small
+
+## embeddings parameters
+LLM:
+  MODEL_LLM : gpt-4o-mini

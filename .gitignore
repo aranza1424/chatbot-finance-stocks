@@ -1,7 +1,11 @@
 .env
-# notebooks/
-# db/
-
 test_agent.ipynb
 setup_path.py
-chroma_db/chroma.sqlite3
+
+notebooks/
+chroma_db/*
+chroma_db/*
+agent/__pycache__/*
+agent/utils/__pycache__/*
+
+

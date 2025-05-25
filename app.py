@@ -6,7 +6,6 @@ import gradio as gr
 from agent.agent_graph import AgentGraph
 
 load_dotenv(override=True)
-os.environ.get("OPENAI_API_KEY")
 
 
 class ChatInterface:
@@ -15,7 +14,7 @@ class ChatInterface:
         
         self.my_graph = graph()
         self.demo = gr.ChatInterface(
-                    self.my_graph.get_response,
+                    self.my_graph.get_gradio_response,
                     additional_inputs=[
                         gr.Textbox(value="Me", label="thread_id"),                        
                     ],

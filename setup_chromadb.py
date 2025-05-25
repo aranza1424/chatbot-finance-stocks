@@ -52,9 +52,9 @@ class ChromaEmbeddingProcessor:
         self.chroma_client = self._init_chroma_client()
         
         # Variables para almacenar datos
-        self.file_lines = []
-        self.list_text = []
-        self.embeddings = []
+        self.file_lines = None
+        self.list_text = None
+        self.embeddings = None
         self.chroma_collection = None
         
     def _init_openai_client(self) -> OpenAIEmbeddings:
@@ -74,6 +74,8 @@ class ChromaEmbeddingProcessor:
         Lee un archivo CSV y guarda su contenido
         
         """
+        self.file_lines = []
+
         try:
             with open(self.SP500_INFO_PATH, mode ='r', encoding='utf-8-sig') as file:    
                 csvFile = csv.DictReader(file)
@@ -89,6 +91,8 @@ class ChromaEmbeddingProcessor:
         Crea una lista de texto personalizado basado en las columnas del CSV
         
         """
+        self.list_text = []
+
         if self.file_lines is None:
             raise ValueError("Primero debe leer un archivo CSV")
         
@@ -109,6 +113,7 @@ class ChromaEmbeddingProcessor:
         if not self.list_text:
             raise ValueError("Primero debe crear la lista de textos")
         
+        self.embeddings = []
 
         try:
             self.embeddings = self.openaiembeddings_model_client.embed_documents(self.list_text)
