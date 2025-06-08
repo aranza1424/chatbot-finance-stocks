@@ -9,3 +9,6 @@ agent/__pycache__/*
 agent/utils/__pycache__/*
 
 
+.venv/
+__pycache__/
+*.pyc

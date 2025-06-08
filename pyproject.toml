@@ -1,0 +1,17 @@
+[project]
+name = "chatbot-finance-stocks"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.11"
+dependencies = [
+    "chromadb>=1.0.12",
+    "gradio>=5.33.0",
+    "ipython>=9.3.0",
+    "langchain>=0.3.25",
+    "langchain-core>=0.3.64",
+    "langchain-openai>=0.3.21",
+    "langgraph>=0.4.8",
+    "pandas>=2.3.0",
+    "pytest>=8.4.0",
+    "python-dotenv>=1.1.0",
+]

@@ -15,9 +15,9 @@ from agent.utils.states import *
 load_dotenv(override=True)
 
 #read YAMl
-with open('prompts.yml', 'r') as f:
+with open('./parameters/prompts.yml', 'r') as f:
     data_prompt = yaml.safe_load(f)
-with open('config_parameters.yml', 'r') as f:
+with open('./parameters/config_parameters.yml', 'r') as f:
     data_config = yaml.safe_load(f)
 
 
