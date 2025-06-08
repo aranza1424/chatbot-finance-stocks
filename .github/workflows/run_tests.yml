@@ -1,0 +1,26 @@
+name: Test app
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Debug  secrets presence
+        run: |
+          if [ -z "${{ secrets.DOCKER_USERNAME }}" ]; then echo "Missing DOCKER_USERNAME"; else echo "AWS_ACCESS_KEY is set"; fi
+          if [ -z "${{ secrets.DOCKER_PASSWORD }}" ]; then echo "Missing DOCKER_PASSWORD"; else echo "AWS_SECRET_KEY is set"; fi
+      
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      
+      - name: Build Docker image
+        run: docker build -t aranza1424/finance-app-docker -f docker/Dockerfile.dev .
+      
+      - name: Test result
+        run: docker run aranza1424/finance-app-docker uv run pytest -v

@@ -1,0 +1,36 @@
+# Usar imagen oficial de Python
+FROM python:3.12-slim
+
+# Instalar uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /usr/local/bin/
+
+# Configurar variables de entorno para uv
+ENV UV_COMPILE_BYTECODE=1
+ENV UV_LINK_MODE=copy
+
+# Configurar directorio de trabajo
+WORKDIR /app
+
+# Instalar dependencias del sistema si son necesarias
+RUN apt-get update && apt-get install -y \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copiar archivos de configuración de dependencias
+COPY ./pyproject.toml ./uv.lock* ./
+
+# Instalar dependencias con uv
+RUN uv sync --frozen --no-cache
+
+# Copiar el código de la aplicación
+COPY . .
+
+# Exponer el puerto
+EXPOSE 8000
+
+# Variables de entorno para desarrollo
+ENV ENVIRONMENT=development
+ENV PYTHONPATH=/app
+
+# Comando por defecto - usar uv para ejecutar uvicorn
+CMD ["uv", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]

@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ..  # Contexto apunta a la carpeta padre (root)
+      dockerfile: docker/Dockerfile.dev  # Ruta relativa desde el contexto
+    ports:
+      - "8000:8000"
+    volumes:
+      - ..:/app  # Montar la carpeta padre (root) en /app
+    environment:
+      - ENVIRONMENT=development
