@@ -2,16 +2,17 @@
 .env
 
 
-test_agent.ipynb
+nb_test_agent.ipynb
 setup_path.py
 simple_interface.html
+.pytest_cache
 
 notebooks/
 chroma_db/*
 chroma_db/*
 agent/__pycache__/*
 agent/utils/__pycache__/*
-
+test/__pycache__/*
 
 .venv/
 __pycache__/
