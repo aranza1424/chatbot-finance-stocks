@@ -7,13 +7,21 @@ root_dir = Path(__file__).parent.parent
 sys.path.insert(0, str(root_dir))
 
 
-with patch('langchain_openai.ChatOpenAI') as mock_openai:
-    # Configurar el mock
+with patch('langchain_openai.ChatOpenAI') as mock_chat_openai, \
+     patch('langchain_openai.OpenAIEmbeddings') as mock_embeddings:
+    
+    # Configurar el mock para ChatOpenAI
     mock_llm = Mock()
     mock_llm.invoke.return_value = Mock(content="Esta es una respuesta de prueba del mock")
-    mock_openai.return_value = mock_llm
+    mock_chat_openai.return_value = mock_llm
     
-    # Ahora importar después del mock
+    # Configurar el mock para OpenAIEmbeddings
+    mock_embed = Mock()
+    mock_embed.embed_query.return_value = [0.1, 0.2, 0.3]  # Vector de ejemplo
+    mock_embed.embed_documents.return_value = [[0.1, 0.2, 0.3], [0.4, 0.5, 0.6]]
+    mock_embeddings.return_value = mock_embed
+    
+    # Ahora importar después de los mocks
     from fastapi.testclient import TestClient
     from main import app
 
