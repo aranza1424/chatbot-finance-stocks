@@ -58,16 +58,24 @@ git clone <repo-url>
 cd chatbot-finance-stocks
 ```
 
-2. **Create a virtual environment**
+2. **Install uv (if you don't have it)**
 ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+# macOS/Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Windows (PowerShell)
+powershell -c "irm https://astral.sh/uv/install.sh | iex"
 ```
 
-3. **Install dependencies**
+3. **Set up the project environment**
 ```bash
-pip install -r requirements.txt
+# Create virtual environment and install dependencies
+uv sync
+
+# Pin Python version (if needed)
+uv python pin 3.11
 ```
+
 
 4. **Set environment variables**
 ```bash
@@ -84,7 +92,7 @@ OPENAI_API_KEY=your_api_key_here
 Before running the application, you must create the vector database:
 
 ```bash
-python setup_chromadb.py
+uv run python setup_chromadb.py
 ```
 
 This script processes the CSV files and builds the ChromaDB required by the agent.
@@ -92,7 +100,7 @@ This script processes the CSV files and builds the ChromaDB required by the agen
 ## 🚀 Running the Application
 
 ```bash
-python main.py
+uv run python gradio_main.py
 ```
 
 The app will launch at `http://127.0.0.1:7860` by default.

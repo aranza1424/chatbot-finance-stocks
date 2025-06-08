@@ -1,6 +1,10 @@
+
 .env
+
+
 test_agent.ipynb
 setup_path.py
+simple_interface.html
 
 notebooks/
 chroma_db/*

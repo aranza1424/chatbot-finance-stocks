@@ -5,6 +5,7 @@ description = "Add your description here"
 requires-python = ">=3.11"
 dependencies = [
     "chromadb>=1.0.12",
+    "fastapi[standard]>=0.115.9",
     "gradio>=5.33.0",
     "ipython>=9.3.0",
     "langchain>=0.3.25",
