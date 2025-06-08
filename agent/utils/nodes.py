@@ -66,7 +66,15 @@ class MainNodes:
          print(message)
          raise ValueError(f"Unknown tool call: {tool_call['name']}")
       
-main_nodes = MainNodes()
+
+_main_nodes = None
+
+def get_main_nodes():
+    global _main_nodes
+    if _main_nodes is None:
+        from agent.utils.nodes import MainNodes  # evita import circular si aplica
+        _main_nodes = MainNodes()
+    return _main_nodes
 
 """
 ------------------------------------------
@@ -109,7 +117,16 @@ class QueryNodes:
       response = self.llm.with_structured_output(FinalAnswerQuery).invoke(prompt)
       return {"messages": [AIMessage(content=response.answer)]}
 
-query_nodes = QueryNodes()
+
+
+_query_nodes = None
+
+def get_query_nodes():
+    global _query_nodes
+    if _query_nodes is None:
+        from agent.utils.nodes import QueryNodes  # evita import circular si aplica
+        _query_nodes = QueryNodes()
+    return _query_nodes
 
 """
 ------------------------------------------

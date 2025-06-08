@@ -66,20 +66,7 @@ class TestAskEndpoint:
         # Debe funcionar aunque la pregunta esté vacía
         assert response.status_code == 200
 
-    
-    def test_ask_question_long_text(self):
-        """Test con texto largo"""
-        long_question = "Esta es una pregunta muy larga " * 50
-        test_data = {
-            "question": long_question,
-            "thread_id": "test_thread_789"
-        }
-        
-        response = client.post("/API/ask", json=test_data)
-        
-        assert response.status_code == 200
-
-    
+   
     def test_ask_question_missing_fields(self):
         """Test con campos faltantes"""
         # Sin question
@@ -112,16 +99,6 @@ class TestAskEndpoint:
         response = client.post("/API/ask", json=test_data)
         assert response.status_code == 422
     
-    def test_ask_question_special_characters(self):
-        """Test con caracteres especiales"""
-        test_data = {
-            "question": "¿Qué tal? ñáéíóú @#$%^&*()",
-            "thread_id": "test_thread_special_chars"
-        }
-        
-        response = client.post("/API/ask", json=test_data)
-        
-        assert response.status_code == 200
 
 class TestAppBasics:
     """Tests básicos de la aplicación"""

@@ -10,10 +10,11 @@ from uuid import uuid4
 from IPython.display import Image, display
 
 from agent.utils.states import OverallQueryState
-from agent.utils.nodes import main_nodes, query_nodes
+from agent.utils.nodes import get_main_nodes, get_query_nodes
 from agent.utils.tools import tool_node_main
 
-
+main_nodes = get_main_nodes()
+query_nodes = get_query_nodes()
 
 #create an abstrac class
 class Agent(ABC):
