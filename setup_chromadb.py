@@ -67,7 +67,7 @@ class ChromaEmbeddingProcessor:
         # Crear directorio si no existe
         Path(self.VECTOR_DB_PATH).mkdir(parents=True, exist_ok=True)
 
-        return chromadb.PersistentClient(path=VECTOR_DB_PATH)
+        return chromadb.PersistentClient(path=self.VECTOR_DB_PATH)
     
     def read_csv(self) -> None:
         """
