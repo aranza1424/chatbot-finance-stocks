@@ -5,13 +5,24 @@ from pathlib import Path
 root_dir = Path(__file__).parent.parent
 sys.path.insert(0, str(root_dir))
 
-# Importar después de aplicar mocks
+from unittest.mock import patch, MagicMock
 from fastapi.testclient import TestClient
-from main import app
 
+with patch('chromadb.PersistentClient') as mock_chroma:
+    mock_client = MagicMock()
+    mock_collection = MagicMock()
+    
+    # Simular colección Chroma
+    mock_client.get_collection.return_value = mock_collection
+    mock_chroma.return_value = mock_client
 
-# Crear el cliente de pruebas
-client = TestClient(app)
+    # También puedes simular métodos del collection si los usas
+    mock_collection.query.return_value = {"documents": ["mock doc"], "ids": ["1"]}
+
+    # Ahora importar después del mock
+    from main import app
+    client = TestClient(app)
+
 
 class TestAskEndpoint:
     """Tests para el endpoint /ask"""
