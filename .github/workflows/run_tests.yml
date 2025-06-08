@@ -13,9 +13,9 @@ jobs:
 
       - name: Debug  secrets presence
         run: |
-          if [ -z "${{ secrets.DOCKER_USERNAME }}" ]; then echo "Missing DOCKER_USERNAME"; else echo "AWS_ACCESS_KEY is set"; fi
-          if [ -z "${{ secrets.DOCKER_PASSWORD }}" ]; then echo "Missing DOCKER_PASSWORD"; else echo "AWS_SECRET_KEY is set"; fi
-          if [ -z "${{ secrets.OPENAI_API_KEY }}" ]; then echo "Missing OPENAI_API_KEY"; else echo "AWS_SECRET_KEY is set"; fi
+          if [ -z "${{ secrets.DOCKER_USERNAME }}" ]; then echo "Missing DOCKER_USERNAME"; else echo "DOCKER_USERNAME is set"; fi
+          if [ -z "${{ secrets.DOCKER_PASSWORD }}" ]; then echo "Missing DOCKER_PASSWORD"; else echo "DOCKER_PASSWORD is set"; fi
+          if [ -z "${{ secrets.OPENAI_API_KEY }}" ]; then echo "Missing OPENAI_API_KEY"; else echo "OPENAI_API_KEY is set"; fi
       
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}

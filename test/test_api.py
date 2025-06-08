@@ -1,12 +1,22 @@
 import sys
 from pathlib import Path
-
+import os
+from unittest.mock import patch, Mock
 # Agregar la carpeta raíz al path de Python
 root_dir = Path(__file__).parent.parent
 sys.path.insert(0, str(root_dir))
 
-from fastapi.testclient import TestClient
-from main import app  # Asume que tu archivo se llama main.py
+
+with patch('langchain_openai.ChatOpenAI') as mock_openai:
+    # Configurar el mock
+    mock_llm = Mock()
+    mock_llm.invoke.return_value = Mock(content="Esta es una respuesta de prueba del mock")
+    mock_openai.return_value = mock_llm
+    
+    # Ahora importar después del mock
+    from fastapi.testclient import TestClient
+    from main import app
+
 
 # Crear el cliente de pruebas
 client = TestClient(app)
