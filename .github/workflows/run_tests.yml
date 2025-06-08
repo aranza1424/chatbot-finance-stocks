@@ -24,4 +24,4 @@ jobs:
         run: docker build -t aranza1424/finance-app-docker -f docker/Dockerfile.dev .
       
       - name: Test result
-        run: docker run aranza1424/finance-app-docker uv run pytest -v
+        run: docker run -e OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} aranza1424/finance-app-docker uv run pytest -v
