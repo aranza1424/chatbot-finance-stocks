@@ -11,3 +11,5 @@ services:
       - ..:/app  # Montar la carpeta padre (root) en /app
     environment:
       - ENVIRONMENT=development
+    env_file:
+      - ../.env  # Accede al archivo sin copiarlo

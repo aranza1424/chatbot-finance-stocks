@@ -1,2 +1,16 @@
 
 .env
+
+# Ignorar entornos virtuales
+.venv/
+env/
+
+# Ignorar cachés y metadatos
+__pycache__/
+*.py[cod]
+*.log
+
+
+# Ignorar archivos y carpetas ocultas comunes
+.git/
+.github
