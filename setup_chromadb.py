@@ -15,7 +15,7 @@ load_dotenv(override=True)
 #load YAML variables
 #read YAMl
 
-with open('config_parameters.yml', 'r') as f:
+with open('./parameters/config_parameters.yml', 'r') as f:
     data = yaml.safe_load(f)
 
 VECTOR_DB_PATH = data["chroma"]["VECTOR_DB_PATH"]
