@@ -8,8 +8,6 @@ simple_interface.html
 .pytest_cache
 
 notebooks/
-chroma_db/*
-chroma_db/*
 agent/__pycache__/*
 agent/utils/__pycache__/*
 test/__pycache__/*
