@@ -67,14 +67,6 @@ class MainNodes:
          raise ValueError(f"Unknown tool call: {tool_call['name']}")
       
 
-_main_nodes = None
-
-def get_main_nodes():
-    global _main_nodes
-    if _main_nodes is None:
-        from agent.utils.nodes import MainNodes  # evita import circular si aplica
-        _main_nodes = MainNodes()
-    return _main_nodes
 
 """
 ------------------------------------------
@@ -119,14 +111,6 @@ class QueryNodes:
 
 
 
-_query_nodes = None
-
-def get_query_nodes():
-    global _query_nodes
-    if _query_nodes is None:
-        from agent.utils.nodes import QueryNodes  # evita import circular si aplica
-        _query_nodes = QueryNodes()
-    return _query_nodes
 
 """
 ------------------------------------------
