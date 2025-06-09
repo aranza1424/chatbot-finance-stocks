@@ -10,11 +10,10 @@ from uuid import uuid4
 from IPython.display import Image, display
 
 from agent.utils.states import OverallQueryState
-from agent.utils.nodes import get_main_nodes, get_query_nodes
+from agent.utils.nodes import MainNodes, QueryNodes
 from agent.utils.tools import tool_node_main
 
-main_nodes = get_main_nodes()
-query_nodes = get_query_nodes()
+
 
 #create an abstrac class
 class Agent(ABC):
@@ -76,14 +75,15 @@ class AgentQuery(Agent):
     def __init__(self):
 
         self._state_output ="question"
+        self.query_nodes = QueryNodes()
 
         graph = StateGraph(OverallQueryState)
-        graph.add_node("generate_questions", query_nodes.generate_questions)
-        graph.add_node("generate_query", query_nodes.generate_query)
-        graph.add_node("get_final_query_response", query_nodes.get_final_query_response)
+        graph.add_node("generate_questions", self.query_nodes.generate_questions)
+        graph.add_node("generate_query", self.query_nodes.generate_query)
+        graph.add_node("get_final_query_response", self.query_nodes.get_final_query_response)
         
         graph.add_edge(START, "generate_questions")
-        graph.add_conditional_edges("generate_questions", query_nodes.continue_to_query, ["generate_query"])
+        graph.add_conditional_edges("generate_questions", self.query_nodes.continue_to_query, ["generate_query"])
         graph.add_edge("generate_query", "get_final_query_response")
         graph.add_edge("get_final_query_response", END)
 
@@ -114,15 +114,16 @@ class AgentGraph(Agent):
         
         self.agent_ext = AgentQuery()
         self._state_output ="messages"
+        self.main_nodes = MainNodes()
 
         builder = StateGraph(OverallQueryState)
 
-        builder.add_node("decide_tool", main_nodes.decide_tool)
+        builder.add_node("decide_tool", self.main_nodes.decide_tool)
         builder.add_node("execute_tools", tool_node_main)
         builder.add_node("generate_query", self.agent_ext.graph.compile())
         
         builder.add_edge(START, "decide_tool")
-        builder.add_conditional_edges("decide_tool", main_nodes.route_message)
+        builder.add_conditional_edges("decide_tool", self.main_nodes.route_message)
         builder.add_edge("execute_tools", "generate_query")
         builder.add_edge("generate_query", END)
 
